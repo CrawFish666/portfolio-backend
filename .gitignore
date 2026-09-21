@@ -6,7 +6,8 @@ node_modules/
 .env.local
 
 # User-uploaded files
-uploads/**
+uploads/*
+!uploads/**/
 !uploads/**/.gitkeep
 
 # Logs
