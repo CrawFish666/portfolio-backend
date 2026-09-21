@@ -423,12 +423,9 @@ npm start
 
 ## Roadmap
 
-- добавить integration tests;
-- добавить pagination для проектов и feedback;
-- добавить OpenAPI/Swagger;
+[Roadmap](./roadmap.md)
 - вынести uploads во внешнее хранилище;
-- добавить production logging;
-- добавить CI/CD pipeline.
+
 
 ## License
 
