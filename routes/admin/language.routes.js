@@ -1,0 +1,16 @@
+const express = require("express");
+const router = express.Router();
+
+const controller = require("../../controllers/language.controller");
+
+router.get("/", controller.getAdminLanguages);
+
+router.get("/:id", controller.getLanguageById);
+
+router.post("/", controller.createLanguage);
+
+router.put("/:id", controller.updateLanguage);
+
+router.delete("/:id", controller.deleteLanguage);
+
+module.exports = router;
