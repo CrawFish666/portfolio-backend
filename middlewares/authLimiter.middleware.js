@@ -1,5 +1,4 @@
-const rateLimit = require("express-rate-limit");
-const { ipKeyGenerator } = require("express-rate-limit");
+const { rateLimit, ipKeyGenerator } = require("express-rate-limit");
 const getClientIp = require("../utils/getClientIp");
 
 // Защита от подбора пароля / спама регистраций.
@@ -10,7 +9,15 @@ const loginLimiter = rateLimit({
 	standardHeaders: true,
 	legacyHeaders: false,
 	skipSuccessfulRequests: true, // успешные логины не расходуют лимит
-	message: { message: "Слишком много попыток входа. Повторите позже." },
+	handler: (req, res, next) => {
+		next(
+			new ApiError(
+				429,
+				"RATE_LIMIT_EXCEEDED",
+				"Слишком много попыток входа. Повторите позже."
+			)
+		);
+	},
 });
 
 // forgot-password рассылает письмо — лимитируем отдельно и мягче,
@@ -21,7 +28,15 @@ const forgotPasswordLimiter = rateLimit({
 	keyGenerator: (req) => ipKeyGenerator(getClientIp(req)),
 	standardHeaders: true,
 	legacyHeaders: false,
-	message: { message: "Слишком много запросов. Повторите позже." },
+	handler: (req, res, next) => {
+		next(
+			new ApiError(
+				429,
+				"RATE_LIMIT_EXCEEDED",
+				"Слишком много запросов. Повторите позже."
+			)
+		);
+	},
 });
 
 module.exports = { loginLimiter, forgotPasswordLimiter };
