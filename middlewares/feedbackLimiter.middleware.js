@@ -1,5 +1,6 @@
 const { rateLimit, ipKeyGenerator } = require("express-rate-limit");
 const getClientIp = require("../utils/getClientIp");
+const ApiError = require("../utils/ApiError");
 
 const feedbackLimiter = rateLimit({
 	windowMs: 60 * 1000, // 1 минута 

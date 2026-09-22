@@ -1,5 +1,6 @@
 const { rateLimit, ipKeyGenerator } = require("express-rate-limit");
 const getClientIp = require("../utils/getClientIp");
+const ApiError = require("../utils/ApiError");
 
 // Защита от подбора пароля / спама регистраций.
 const loginLimiter = rateLimit({
