@@ -4,6 +4,7 @@ const escapeHtml = require("escape-html");
 const Feedback = require("../models/Feedback");
 const Settings = require("../models/Settings");
 const mailer = require("../utils/mailer");
+const getClientIp = require("../utils/getClientIp");
 
 const createFeedback = async (data, req) => {
 	// Cooldown по email (1 минута)
@@ -47,7 +48,7 @@ const createFeedback = async (data, req) => {
 		email: data.email.toLowerCase(),
 		subject: data.subject,
 		message: data.message,
-		ip: req.ip || "",
+		ip: getClientIp(req),
 		userAgent: req.get("user-agent") || "",
 	});
 
