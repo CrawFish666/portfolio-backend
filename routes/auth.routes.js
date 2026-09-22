@@ -13,11 +13,12 @@ const {
 } = require("../controllers/auth.controller");
 const { protect } = require("../middlewares/authMiddleware");
 const { loginLimiter, forgotPasswordLimiter } = require("../middlewares/authLimiter.middleware");
+const csrfMiddleware = require("../middlewares/csrf.middleware");
 
 router.post("/register", loginLimiter, register);
 router.post("/login", loginLimiter, login);
-router.post("/refresh", refresh);
-router.post("/logout", logout);
+router.post("/refresh", csrfMiddleware, refresh);
+router.post("/logout", csrfMiddleware, logout);
 router.get("/me", protect, getMe);
 router.put("/me", protect, updateProfile);
 router.post("/forgot-password", forgotPasswordLimiter, sendRecoveryPasswordToken);
