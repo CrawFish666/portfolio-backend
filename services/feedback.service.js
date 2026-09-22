@@ -12,6 +12,13 @@ const createFeedback = async (data, req) => {
 		createdAt: { $gte: new Date(Date.now() - 60 * 1000) },
 	});
 
+	console.log({
+		ip: req.ip,
+		ips: req.ips,
+		xForwardedFor: req.get("x-forwarded-for"),
+		remoteAddress: req.socket.remoteAddress,
+	});
+
 	if (recentByEmail) {
 		throw new ApiError(
 			429,
