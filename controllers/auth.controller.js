@@ -29,7 +29,7 @@ const setRefreshCookie = (res, refreshToken) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		// Если strict, то при разработке (разные порты фронт/бэк) кука потеряется
-		sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+		sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
 		path: "/",
 		maxAge: REFRESH_TOKEN_TTL_MS,
 	});
